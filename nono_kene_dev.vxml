@@ -6,9 +6,9 @@
 <!-- Welcome message -->
 <form id="welcomeMessage">
 <block>
-<prompt bargein="true">
+<prompt bargein="false">
 	<audio src="https://raw.githubusercontent.com/daanderuijter/ICT4D2020/dev/wavs/welcome_message.wav">
-	 This is some backup TTS. 
+	 This is some backup TTS if the audio file fails. 
 	</audio>
 </prompt>
 <goto next="#MainMenu"/>
@@ -16,8 +16,12 @@
 </form>
 
 <!-- Menu for Selecting Buy or Sell using DTMF-->
-<menu id="MainMenu" dtmf="true" scope="dialog">
-   <prompt>if you want to buy Milk select 1, if you want to sell milk select 2</prompt>
+<menu id="MainMenu" dtmf="true" scope="dialog">   
+   <prompt bargein="true">
+   	<audio src="https://raw.githubusercontent.com/daanderuijter/ICT4D2020/dev/wavs/menu_select_buy_or_sell.wav">
+   	If you want to buy Milk press 1. If you want to sell Milk press 2.
+   </audio>
+   </prompt>
    <choice event="buy" dtmf="1" message="Buy"></choice>
    <choice next="#sell" dtmf="2"></choice>
 </menu>
