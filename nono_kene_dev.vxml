@@ -4,9 +4,10 @@
 <var name="quantity"/>
 
 <!-- Welcome message -->
-<form action="">
+<form id="welcomeMessage">
 <block>
-<prompt> Welcome to know know key knee development branch 
+<prompt bargein="true">
+	<audio src="/wavs/welcome_message.wav">
 	<break time="1000"/>
 </prompt>
 <goto next="#MainMenu"/>
