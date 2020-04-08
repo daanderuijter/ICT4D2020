@@ -49,7 +49,7 @@
 
 <menu id="sellConfirm" scope="dialog">
 	<prompt> You entered that you wanted to sell the following amount of milk
-	<value expr="quantity"/>
+	<!-- <value expr="quantity"/> -->
 	</prompt>
 <goto next="#EndMenu"/>
 </menu> 
