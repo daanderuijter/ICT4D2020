@@ -41,16 +41,16 @@
 	</field>
 	<!-- "filled" event for entire form-->
     <filled>
-		<goto event="sellConfirm"/> <!--go to EndMenu-->
+		<goto next="#sellConfirm"/> <!--go to EndMenu-->
 	</filled>
 </form>
 
-<catch event="sellConfirm">
+<menu id="sellConfirm" scope="dialog" dtmf="true">
 	<prompt> You entered that you wanted to sell the following amount of milk
 	<value expr="quantity"/>
 	</prompt>
 <goto next="#EndMenu"/>
-</catch> 
+</menu> 
 
 <menu id="EndMenu" dtmf="true" scope="dialog">
    <prompt>if you want to cut the connection select 1, if you want to go back to the start of the service select 2</prompt>
