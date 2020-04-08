@@ -29,7 +29,7 @@
 <menu id="EndMenu" dtmf="true" scope="dialog">
    <prompt>if you want to cut the connection select 1, if you want to go back to the start of the service select 2</prompt>
    <choice event="end" dtmf="1"></choice>
-   <choice next="MainMenu" dtmf="2"></choice>
+   <choice next="#MainMenu" dtmf="2"></choice>
 </menu>
 
 <!-- end event. close call-->
