@@ -5,12 +5,12 @@
 <menu id="MainMenu" dtmf="true" scope="dialog">
    <prompt>if you want to buy Milk select 1, if you want to sell milk select 2</prompt>
    <choice event="buy" dtmf="1" message="Buy"></choice>
-   <choice event="sell" dtmf="2" message="Sell"> </choice>
+   <choice event="sell" dtmf="2" message="Sell"></choice>
 </menu>
 
 <catch event="buy">
  <prompt>
-  You have chosen to go fork yourself
+  You have chosen to
   <break time="1000"/>
  </prompt>
 <!-- go to form "details"-->
@@ -18,12 +18,15 @@
 </catch> 
 
 <catch event="sell">
- <prompt>
-  You have chosen to sell
-  <break time="1000"/>
- </prompt>
-<!-- go to form "details"-->
-<goto next="#EndMenu"/>
+<menu id="MainMenu" dtmf="true" scope="dialog">
+   <prompt>You have chosen to sell milk. <break time=“1000”/> If this is incorrect select 1. Otherwise, select 2</prompt>
+   <choice next="#MainMenu" dtmf="1"></choice>
+   <choice event="correctSell" dtmf="2"></choice>
+</menu>
+</catch>
+
+<catch event=“correctSell”>
+ <prompt> Please enter the amount of liters of milk you want to sell followed by the hash-symbol.</prompt>  
 </catch>
 
 <menu id="EndMenu" dtmf="true" scope="dialog">
