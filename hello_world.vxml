@@ -10,10 +10,25 @@
 
 <catch event="buy">
  <prompt>You have chosen to go fork yourself</prompt>
+<!-- go to form "details"-->
+<goto next="#end"/>
 </catch> 
 
 <catch event="sell"> 
  <prompt>You have chosen to sell</prompt>
-</catch> 
+<!-- go to form "details"-->
+<goto next="#end"/>
+</catch>
+
+<catch event="end"> 
+ <disconnect/> 
+</catch>
+
+<!-- End Connection -->
+ <form id="end">
+  <block>
+   <prompt>Goodbye!</prompt>
+  </block>
+ </form>
 
 </vxml>
