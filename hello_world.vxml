@@ -5,21 +5,26 @@
 <menu id="MainMenu" dtmf="true" scope="dialog">
    <prompt>if you want to buy Milk select 1, if you want to sell milk select 2</prompt>
    <choice event="buy" dtmf="1" message="Buy"></choice>
-   <choice next="#sell" dtmf="2" message="Sell"></choice>
+   <choice next="#sell" dtmf="2"></choice>
 </menu>
 
 <catch event="buy">
  <prompt>
-  You have chosen to
+  You have chosen to buy
   <break time="1000"/>
  </prompt>
 <goto next="#EndMenu"/>
 </catch> 
 
+<catch event="correctSell_event">
+<goto next="#correctSell"/>
+</catch>
+
 <menu id="sell" dtmf="true" scope="dialog">
-   <prompt>You have chosen to sell milk. If this is incorrect select 1. Otherwise, select 2<break time="1000"/></prompt>
+   <prompt>You have chosen to sell milk. If this is incorrect select 1. Otherwise, select 2
+   </prompt>
    <choice next="#MainMenu" dtmf="1"></choice>
-   <choice next="#correctSell" dtmf="2"></choice>
+   <choice event="correctSell_event" dtmf="2"></choice>
 </menu>
 
 <form id="correctSell">
@@ -27,7 +32,6 @@
 	<field name="form_quantity" type="number">
 		<prompt> 
 			enter the quantity and press hash
-			<break time="1000"/>
 		</prompt>
 	<!--"filled" event for quantity field-->
    	<filled>
