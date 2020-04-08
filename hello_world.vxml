@@ -45,7 +45,7 @@
 	</filled>
 </form>
 
-<menu id="sellConfirm" scope="dialog" dtmf="true">
+<menu id="sellConfirm" scope="dialog">
 	<prompt> You entered that you wanted to sell the following amount of milk
 	<value expr="quantity"/>
 	</prompt>
