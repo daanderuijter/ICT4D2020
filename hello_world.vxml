@@ -19,7 +19,7 @@
 
 <catch event="sell">
 <menu id="MainMenu" dtmf="true" scope="dialog">
-   <prompt>You have chosen to sell milk. <break time=“1000”/> If this is incorrect select 1. Otherwise, select 2</prompt>
+   <prompt>You have chosen to sell milk. <break time="1000"/> If this is incorrect select 1. Otherwise, select 2</prompt>
    <choice next="#MainMenu" dtmf="1"></choice>
    <choice event="correctSell" dtmf="2"></choice>
 </menu>
