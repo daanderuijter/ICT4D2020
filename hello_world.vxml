@@ -49,7 +49,11 @@
 
 <menu id="sellConfirm" dtmf="true" scope="dialog">
 	<prompt>
-	<value expr="quantity"/>
+		The quantity of milk you have selected to sell is
+		<break time="1000"/>
+		<value expr="quantity"/>
+		<break time="1000"/>
+		If this is incorrect select 1. Otherwise, select 2
 	</prompt>
    <choice next="#correctSell" dtmf="1"></choice>
    <choice next="#EndMenu" dtmf="2"></choice>
