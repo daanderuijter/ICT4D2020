@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <vxml version = "2.1" >
 
-
+<var name="quantity"/>
 
 <!-- Menu for Selecting Buy or Sell using DTMF-->
 <menu id="MainMenu" dtmf="true" scope="dialog">
@@ -43,11 +43,17 @@
 	</field>
 	<!-- "filled" event for entire form-->
     <filled>
-		<goto next="#EndMenu"/> <!--go to EndMenu-->
+		<goto next="#sellConfirm"/> <!--go to EndMenu-->
 	</filled>
 </form>
 
-
+<menu id="sellConfirm" dtmf="true" scope="dialog">
+	<prompt>
+	<value expr="quantity"/>
+	</prompt>
+   <choice next="#correctSell" dtmf="1"></choice>
+   <choice next="#EndMenu" dtmf="2"></choice>
+</menu> 
 
 <menu id="EndMenu" dtmf="true" scope="dialog">
    <prompt>if you want to cut the connection select 1, if you want to go back to the start of the service select 2</prompt>
