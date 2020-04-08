@@ -7,7 +7,7 @@
 <form id="welcomeMessage">
 <block>
 <prompt bargein="true">
-	<audio src="https://raw.githubusercontent.com/daanderuijter/ICT4D2020/dev/wavs/welcome_message.wav">
+	<audio src="/wavs/welcome_message.wav"/>
 	<break time="1000"/>
 </prompt>
 <goto next="#MainMenu"/>
