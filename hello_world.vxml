@@ -16,18 +16,30 @@
 <goto next="#EndMenu"/>
 </catch> 
 
-
 <menu id="sell" dtmf="true" scope="dialog">
-   <prompt>You have chosen to sell milk. <break time=“1000”/></prompt>
-   <prompt>If this is incorrect select 1. Otherwise, select 2</prompt>
+   <prompt>You have chosen to sell milk. If this is incorrect select 1. Otherwise, select 2<break time="1000"/></prompt>
    <choice next="#MainMenu" dtmf="1"></choice>
-   <choice event="correctSell" dtmf="2"></choice>
+   <choice next="#correctSell" dtmf="2"></choice>
 </menu>
 
-<catch event="correctSell">
- <prompt> Please enter the amount of liters of milk you want to sell followed by the hash-symbol.</prompt> 
-<goto next="#EndMenu"/> 
-</catch>
+<form id="correctSell">
+	<!-- Quantity field-->
+	<field name="form_quantity" type="number">
+		<prompt> 
+			enter the quantity and press hash
+			<break time="1000"/>
+		</prompt>
+	<!--"filled" event for quantity field-->
+   	<filled>
+	<!--save entered value in variable-->
+ 	<assign name="quantity" expr="form_quantity"/>
+		</filled>
+	</field>
+	<!-- "filled" event for entire form-->
+    <filled>
+		<goto next="#EndMenu"/> <!--go to EndMenu-->
+	</filled>
+</form>
 
 <menu id="EndMenu" dtmf="true" scope="dialog">
    <prompt>if you want to cut the connection select 1, if you want to go back to the start of the service select 2</prompt>
