@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <vxml version = "2.1" >
-	<form>
-		<block>
-			<prompt>Hello World!</prompt>
-		</block>
-	</form>
+
+<!-- Menu for Selecting Buy or Sell using DTMF-->
+<menu id="MainMenu" dtmf="true" scope="dialog">
+   <prompt>if you want to buy Milk select 1, if you want to sell milk select 2</prompt>
+   <choice event="buy" dtmf="1" message="Buy"></choice>
+   <choice event="sell" dtmf="2" message="Sell"> </choice>
+</menu>
+
+<catch event="buy">
+ <prompt>You have chosen to go fork yourself</prompt>
+</catch> 
+
+<catch event="sell"> 
+ <prompt>You have chosen to sell</prompt>
+</catch> 
+
 </vxml>
