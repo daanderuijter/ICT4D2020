@@ -9,26 +9,32 @@
 </menu>
 
 <catch event="buy">
- <prompt>You have chosen to go fork yourself</prompt>
+ <prompt>
+  You have chosen to go fork yourself
+  <break time="1000"/>
+ </prompt>
 <!-- go to form "details"-->
-<goto next="#end"/>
+<goto next="#EndMenu"/>
 </catch> 
 
-<catch event="sell"> 
- <prompt>You have chosen to sell</prompt>
+<catch event="sell">
+ <prompt>
+  You have chosen to sell
+  <break time="1000"/>
+ </prompt>
 <!-- go to form "details"-->
-<goto next="#end"/>
+<goto next="#EndMenu"/>
 </catch>
 
+<menu id="EndMenu" dtmf="true" scope="dialog">
+   <prompt>if you want to cut the connection select 1, if you want to go back to the start of the service select 2</prompt>
+   <choice event="end" dtmf="1"></choice>
+   <choice next="MainMenu" dtmf="2"></choice>
+</menu>
+
+<!-- end event. close call-->
 <catch event="end"> 
- <disconnect/> 
-</catch>
-
-<!-- End Connection -->
- <form id="end">
-  <block>
    <prompt>Goodbye!</prompt>
-  </block>
- </form>
-
+   <disconnect/> 
+</catch>
 </vxml>
