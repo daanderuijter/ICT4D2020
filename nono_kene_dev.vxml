@@ -3,6 +3,16 @@
 
 <var name="quantity"/>
 
+<!-- Welcome message -->
+<form action="">
+<block>
+<prompt> Welcome to know know key knee development branch 
+	<break time="1000"/>
+</prompt>
+<goto next="#MainMenu"/>
+</block>
+</form>
+
 <!-- Menu for Selecting Buy or Sell using DTMF-->
 <menu id="MainMenu" dtmf="true" scope="dialog">
    <prompt>if you want to buy Milk select 1, if you want to sell milk select 2</prompt>
