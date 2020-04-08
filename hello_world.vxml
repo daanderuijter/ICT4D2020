@@ -10,7 +10,7 @@
 
 <catch event="buy">
  <prompt>
-  You have chosen to buy
+  You have chosen to buy milk
   <break time="1000"/>
  </prompt>
 <goto next="#EndMenu"/>
@@ -40,6 +40,10 @@
 		</filled>
 	</field>
 	<!-- "filled" event for entire form-->
+	<prompt> You want to sell 
+	<value expr="quantity"/>
+	milk
+	</prompt>
     <filled>
 		<goto next="#EndMenu"/> <!--go to EndMenu-->
 	</filled>
