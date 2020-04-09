@@ -3,6 +3,7 @@
 
 <var name="quantity"/>
 <var name="path" expr="'https://raw.githubusercontent.com/daanderuijter/ICT4D2020/dev/wavs/'"/>
+<var name="uid" expr="'devTestID'"/>
 
 <!-- Welcome message -->
 <form id="welcomeMessage">
@@ -19,7 +20,7 @@
 <!-- Menu for Selecting Buy or Sell using DTMF-->
 <menu id="MainMenu" dtmf="true" scope="dialog">   
 	<prompt bargein="true">
-		<audio src="https://raw.githubusercontent.com/daanderuijter/ICT4D2020/dev/wavs/menu_select_buy_or_sell.wav">
+		<audio expr="path + 'menu_select_buy_or_sell.wav'">
 			If you want to buy Milk press 1. If you want to sell Milk press 2.
 		</audio>
 	</prompt>
@@ -29,7 +30,7 @@
 
 <catch event="buy">
 	<prompt>
- 		<audio src="https://raw.githubusercontent.com/daanderuijter/ICT4D2020/dev/wavs/menu_buy_milk_chosen.wav">
+ 		<audio expr="path + 'menu_buy_milk_chosen.wav'">
   			You have chosen to buy milk.
 		</audio>
   		<break time="1000"/>
@@ -43,7 +44,7 @@
 
 <menu id="sell" dtmf="true" scope="dialog">
 	<prompt bargein="true">
-   		<audio src="https://raw.githubusercontent.com/daanderuijter/ICT4D2020/dev/wavs/menu_sell_milk_chosen.wav">
+   		<audio expr="path + 'menu_sell_milk_chosen.wav'">
    			You have chosen to sell milk. If this is incorrect press 1. Otherwise, press 2.
 		</audio>
    </prompt>
@@ -52,43 +53,56 @@
 </menu>
 
 <form id="correctSell">
-	<!-- Quantity field-->
-	<field name="form_quantity" type="number">
-		<prompt>
-			<audio src="https://raw.githubusercontent.com/daanderuijter/ICT4D2020/dev/wavs/sell_quantity_enter.wav"> 
-				Enter the quantity of milk to sell, and press hash.
+      <record name="sellRecording" 
+            maxtime="60s" dtmfterm="true" beep="true">
+         <prompt>
+			<audio expr="path + 'wavs/sell_quantity_enter.wav'"> 
+				Enter your name, phone number and the quantity of milk to sell, and press hash.
 			</audio>
-		</prompt>
-	<!--"filled" event for quantity field-->
-   	<filled>
-	<!--save entered value in variable-->
- 	<assign name="quantity" expr="form_quantity"/>
-		</filled>
-	</field>
-	<!-- "filled" event for entire form-->
-    <filled>
-		<goto next="#sellConfirm"/> <!--go to EndMenu-->
-	</filled>
+         </prompt>
+
+         <!-- if the user doesn't say anything 
+            within finalsilence, catch the noinput -->
+         <noinput>
+			<prompt>
+			Sorry. I didn't hear you. Now returning to the main menu.
+			</prompt>
+         <goto next="#correctSell"/>
+         </noinput>
+
+         <filled>
+             <!-- demo record shadow variables -->
+             <log>recording size = 
+                   <value expr="sellRecording$.size"/> bytes.</log>
+             <log>recording duration = 
+                   <value expr="sellRecording$.duration"/> milliseconds.</log>
+             <log>dtmf key = <value expr="(sellRecording$.termchar 
+                   ? sellRecording$.termchar : 'none')"/></log>
+             <log>maxtime = 
+                   <value expr="sellRecording$.maxtime"/>.</log>
+			<goto next="#sellConfirm"/>
+         </filled>
+      </record>
 </form>
 
 <menu id="sellConfirm" dtmf="true" scope="dialog">
 	<prompt bargein="true">
-		<audio src="https://raw.githubusercontent.com/daanderuijter/ICT4D2020/dev/wavs/sell_quantity_confirm.wav">
-			The quantity of milk you have selected to sell is.
+		<audio expr="path + 'sell_quantity_confirm.wav'">
+			Your recorded advertisement to sell milk is
 		</audio>
-			<value expr="quantity"/>
+			<audio expr="personal_greeting"/>
 			<break time="500"/>
-		<audio src="https://raw.githubusercontent.com/daanderuijter/ICT4D2020/dev/wavs/sell_confirm_correct_or_incorrect.wav">
+		<audio expr="path + 'sell_confirm_correct_or_incorrect.wav'">
 			If this is incorrect press 1. Otherwise, press 2
 		</audio>
 	</prompt>
    <choice next="#correctSell" dtmf="1"></choice>
    <choice next="#EndMenu" dtmf="2"></choice>
-</menu> 
+</menu>
 
 <menu id="EndMenu" dtmf="true" scope="dialog">
    <prompt bargein="false">
-   		<audio src="https://raw.githubusercontent.com/daanderuijter/ICT4D2020/dev/wavs/end_menu.wav">
+   		<audio expr="path + 'end_menu.wav'">
    			If you want to end the call, press 1. If you want to go back to the start, press 2
    		</audio>
    </prompt>
