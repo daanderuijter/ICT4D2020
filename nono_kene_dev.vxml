@@ -56,7 +56,7 @@
       <record name="sellRecording" 
             maxtime="60s" dtmfterm="true" beep="true">
          <prompt>
-			<audio expr="path + 'wavs/sell_quantity_enter.wav'"> 
+			<audio expr="path + 'sell_quantity_enter.wav'"> 
 				Enter your name, phone number and the quantity of milk to sell, and press hash.
 			</audio>
          </prompt>
@@ -90,7 +90,7 @@
 		<audio expr="path + 'sell_quantity_confirm.wav'">
 			Your recorded advertisement to sell milk is
 		</audio>
-			<audio expr="personal_greeting"/>
+			<audio expr="sellRecording"/>
 			<break time="500"/>
 		<audio expr="path + 'sell_confirm_correct_or_incorrect.wav'">
 			If this is incorrect press 1. Otherwise, press 2
