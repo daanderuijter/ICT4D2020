@@ -56,7 +56,9 @@
 	<!-- Quantity field-->
 	<field name="form_quantity" type="number">
 		<prompt> 
-			enter the quantity and press hash
+		<audio expr="path + 'sell_quantity_liters_enter.wav'">
+			Enter the quantity of milk to sell in liters, and press hash.
+		</audio>
 		</prompt>
 	<!--"filled" event for quantity field-->
    	<filled>
@@ -67,8 +69,8 @@
       <record name="sellRecording" 
             maxtime="60s" dtmfterm="true" beep="true">
          <prompt>
-			<audio expr="path + 'sell_quantity_enter.wav'"> 
-				Enter your name, phone number and the quantity of milk to sell, and press hash.
+			<audio expr="path + 'sell_record_message.wav'"> 
+				Please record a message in which you say your: name, location, and phone number, and press hash.
 			</audio>
          </prompt>
 
@@ -76,7 +78,9 @@
             within finalsilence, catch the noinput -->
          <noinput>
 			<prompt>
-			Sorry. I didn't hear you. Now returning to the main menu.
+				<audio expr="path + 'sorry_hear_no_message.wav'"> 
+					Sorry. I could not hear your message. Now returning to the main menu.
+				</audio>
 			</prompt>
          <goto next="#correctSell"/>
          </noinput>
@@ -93,10 +97,14 @@
                    <value expr="sellRecording$.maxtime"/>.</log>
 			
 			<prompt>
-				The quantity of milk you have selected to sell is
+				<audio expr="path + 'sell_quantity_confirm.wav'"> 
+					The quantity of milk you have selected to sell is
+				</audio>
 				<value expr="quantity"/>
 				<break time="500"/>
-				your recording was 
+				<audio expr="path + 'recorded_advertisement_playback.wav'"> 
+					Your recorded advertisement to sell milk is.
+				</audio>
 				<value expr="sellRecording" />
 			</prompt>
 			<goto next="#sellConfirm"/>
@@ -115,7 +123,7 @@
 </menu>
 
 <menu id="EndMenu" dtmf="true" scope="dialog">
-   <prompt bargein="false">
+   <prompt bargein="true">
    		<audio expr="path + 'end_menu.wav'">
    			If you want to end the call, press 1. If you want to go back to the start, press 2
    		</audio>
