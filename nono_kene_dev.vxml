@@ -4,10 +4,9 @@
 <var name="quantity"/>
 <var name="lang"/>
 <var name="path" expr="'https://raw.githubusercontent.com/daanderuijter/ICT4D2020/dev/wavs/'"/>
-<var name="uid" expr="'devTestID'"/>
 
 <!-- Select a language -->
-<menu id="LangSelect" dtmf="true" scope="dialog">   
+<menu id="LangSelect" dtmf="true" scope="dialog">
 	<prompt bargein="true">
 		<audio expr="path + 'lang_select_EN.wav'">
 			For english press 1.
@@ -24,7 +23,7 @@
 <catch event="langEN">
 	<assign name="lang" expr="'EN/EN_'"/>
 	<goto next="#welcomeMessage"/>
-</catch> 
+</catch>
 
 <!-- Set Language to NL -->
 <catch event="langNL">
@@ -33,120 +32,106 @@
 		sorry, dutch is not yet supported
 	</prompt>
 	<goto next="#LangSelect"/>
-</catch> 
-
+</catch>
 
 <!-- Welcome message -->
 <form id="welcomeMessage">
-<block>
-<prompt bargein="false">
-	Your language is
-	<value expr="lang" />
-	<audio expr="path + lang + 'welcome_message.wav'">
-		This is some backup TTS if the audio file fails. 
-	</audio>
-</prompt>
-<goto next="#MainMenu"/>
-</block>
+	<block>
+		<prompt bargein="false">
+			<audio expr="path + lang + 'welcome_message.wav'">
+				This is some backup TTS if the audio file fails.
+			</audio>
+		</prompt>
+		<goto next="#MainMenu"/>
+	</block>
 </form>
 
 <!-- Menu for Selecting Buy or Sell using DTMF-->
-<menu id="MainMenu" dtmf="true" scope="dialog">   
+<menu id="MainMenu" dtmf="true" scope="dialog">
 	<prompt bargein="true">
 		<audio expr="path + lang + 'menu_select_buy_or_sell.wav'">
 			If you want to buy Milk press 1. If you want to sell Milk press 2.
 		</audio>
 	</prompt>
-	<choice event="buy" dtmf="1" message="Buy"></choice>
+	<choice event="buy" dtmf="1"></choice>
 	<choice next="#sell" dtmf="2"></choice>
 </menu>
 
 <!-- Buying menu -->
 <catch event="buy">
 	<prompt>
- 		<audio expr="path + lang + 'menu_buy_milk_chosen.wav'">
-  			You have chosen to buy milk.
+		<audio expr="path + lang + 'menu_buy_milk_chosen.wav'">
+			You have chosen to buy milk.
 		</audio>
-  		<break time="1000"/>
- 	</prompt>
-<goto next="#EndMenu"/>
-</catch> 
+		<break time="1000"/>
+	</prompt>
+	<goto next="#EndMenu"/>
+</catch>
 
 <catch event="correctSell_event">
-<goto next="#correctSell"/>
+	<goto next="#correctSell"/>
 </catch>
 
 <!-- Selling menu -->
 <menu id="sell" dtmf="true" scope="dialog">
 	<prompt bargein="true">
-   		<audio expr="path + lang + 'menu_sell_milk_chosen.wav'">
-   			You have chosen to sell milk. If this is incorrect press 1. Otherwise, press 2.
+		<audio expr="path + lang + 'menu_sell_milk_chosen.wav'">
+			You have chosen to sell milk. If this is incorrect press 1. Otherwise, press 2.
 		</audio>
-   </prompt>
-   <choice next="#MainMenu" dtmf="1"></choice>
-   <choice event="correctSell_event" dtmf="2"></choice>
+	</prompt>
+	<choice next="#MainMenu" dtmf="1"></choice>
+	<choice event="correctSell_event" dtmf="2"></choice>
 </menu>
 
 <form id="correctSell">
 	<!-- Record quantity of milk to sell through keypad -->
 	<field name="form_quantity" type="number">
-		<prompt> 
-		<audio expr="path + lang + 'sell_quantity_liters_enter.wav'">
-			Enter the quantity of milk to sell in liters, and press hash.
-		</audio>
+		<prompt>
+			<audio expr="path + lang + 'sell_quantity_liters_enter.wav'">
+				Enter the quantity of milk to sell in liters, and press hash.
+			</audio>
 		</prompt>
-	<!--"filled" event for quantity field-->
-   	<filled>
-	<!-- Save entered quantity of milk in variable -->
- 	<assign name="quantity" expr="form_quantity"/>
-	</filled>
+		<!--"filled" event for quantity field-->
+		<filled>
+			<!-- Save entered quantity of milk in variable -->
+			<assign name="quantity" expr="form_quantity"/>
+		</filled>
 	</field>
+	
 	<!-- Record advertisement from farmer stating general info -->
-      <record name="sellRecording" 
-            maxtime="60s" dtmfterm="true" beep="true">
-         <prompt>
-			<audio expr="path + lang + 'sell_record_message.wav'"> 
+	<record name="sellRecording" maxtime="60s" dtmfterm="true" beep="true">
+		<prompt>
+			<audio expr="path + lang + 'sell_record_message.wav'">
 				Please record a message in which you say your: name, location, and phone number, and press hash.
 			</audio>
-         </prompt>
+		</prompt>
 
-         <!-- If the user doesn't say anything 
-            within finalsilence, catch the noinput, and return to selling menu-->
-         <noinput>
+		<!-- If the user doesn't say anything within finalsilence, catch the noinput, and return to selling menu-->
+		<noinput>
 			<prompt>
-				<audio expr="path + lang + 'sorry_hear_no_message.wav'"> 
+				<audio expr="path + lang + 'sorry_hear_no_message.wav'">
 					Sorry. I could not hear your message. Now returning to the main menu.
 				</audio>
 			</prompt>
-         <goto next="#correctSell"/>
-         </noinput>
+			<goto next="#correctSell"/>
+		</noinput>
 
-         <filled>
-             <!-- Demo record shadow variables -->
-             <log>recording size = 
-                   <value expr="sellRecording$.size"/> bytes.</log>
-             <log>recording duration = 
-                   <value expr="sellRecording$.duration"/> milliseconds.</log>
-             <log>dtmf key = <value expr="(sellRecording$.termchar 
-                   ? sellRecording$.termchar : 'none')"/></log>
-             <log>maxtime = 
-                   <value expr="sellRecording$.maxtime"/>.</log>
-			
+		<filled>
 			<!-- Play back quantity of milk and recorded message -->
 			<prompt>
-				<audio expr="path + lang + 'sell_quantity_confirm.wav'"> 
+				<audio expr="path + lang + 'sell_quantity_confirm.wav'">
 					The quantity of milk you have selected to sell is.
 				</audio>
 				<value expr="quantity"/>
 				<break time="500"/>
-				<audio expr="path + lang + 'recorded_advertisement_playback.wav'"> 
+				<audio expr="path + lang + 'recorded_advertisement_playback.wav'">
 					Your recorded advertisement to sell milk is.
 				</audio>
 				<value expr="sellRecording" />
 			</prompt>
 			<goto next="#sellConfirm"/>
-         </filled>
-      </record>
+		</filled>
+	</record>
 </form>
 
 <!-- Menu to confirm recording or go back to selling menu -->
@@ -157,24 +142,27 @@
 			If this is incorrect press 1. Otherwise, press 2
 		</audio>
 	</prompt>
-   <choice next="#correctSell" dtmf="1"></choice>
-   <choice next="#EndMenu" dtmf="2"></choice>
+	<choice next="#correctSell" dtmf="1"></choice>
+	<choice next="#EndMenu" dtmf="2"></choice>
 </menu>
 
 <!-- Menu to end call or go back to start of application -->
 <menu id="EndMenu" dtmf="true" scope="dialog">
-   <prompt bargein="true">
-   		<audio expr="path + lang + 'end_menu.wav'">
-   			If you want to end the call, press 1. If you want to go back to the start, press 2
-   		</audio>
-   </prompt>
-   <choice event="end" dtmf="1"></choice>
-   <choice next="#MainMenu" dtmf="2"></choice>
+	<prompt bargein="true">
+		<audio expr="path + lang + 'end_menu.wav'">
+			If you want to end the call, press 1. If you want to go back to the start, press 2
+		</audio>
+	</prompt>
+	<choice event="end" dtmf="1"></choice>
+	<choice next="#MainMenu" dtmf="2"></choice>
 </menu>
 
 <!-- End application. Close call -->
-<catch event="end"> 
-   <prompt>Goodbye!</prompt>
-   <disconnect/> 
+<catch event="end">
+	<prompt>
+		Goodbye!
+	</prompt>
+	<disconnect/>
 </catch>
+
 </vxml>
