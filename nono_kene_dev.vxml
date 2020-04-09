@@ -53,6 +53,17 @@
 </menu>
 
 <form id="correctSell">
+	<!-- Quantity field-->
+	<field name="form_quantity" type="number">
+		<prompt> 
+			enter the quantity and press hash
+		</prompt>
+	<!--"filled" event for quantity field-->
+   	<filled>
+	<!--save entered value in variable-->
+ 	<assign name="quantity" expr="form_quantity"/>
+	</filled>
+	</field>
       <record name="sellRecording" 
             maxtime="60s" dtmfterm="true" beep="true">
          <prompt>
@@ -80,7 +91,14 @@
                    ? sellRecording$.termchar : 'none')"/></log>
              <log>maxtime = 
                    <value expr="sellRecording$.maxtime"/>.</log>
-			<prompt> your recording was <value expr="sellRecording" /> </prompt>
+			
+			<prompt>
+				The quantity of milk you have selected to sell is
+				<value expr="quantity"/>
+				<break time="500"/>
+				your recording was 
+				<value expr="sellRecording" />
+			</prompt>
 			<goto next="#sellConfirm"/>
          </filled>
       </record>
@@ -88,11 +106,6 @@
 
 <menu id="sellConfirm" dtmf="true" scope="dialog">
 	<prompt bargein="true">
-		<audio expr="path + 'sell_quantity_confirm.wav'">
-			Your recorded advertisement to sell milk is
-		</audio>
-			<!-- <audio expr="sellRecording"/> -->
-			<break time="500"/>
 		<audio expr="path + 'sell_confirm_correct_or_incorrect.wav'">
 			If this is incorrect press 1. Otherwise, press 2
 		</audio>
