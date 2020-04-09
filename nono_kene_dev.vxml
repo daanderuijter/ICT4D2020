@@ -39,11 +39,7 @@
 	<goto next="#LangSelect"/>
 </catch>
 
-<!-- END LANGUAGE SELECT -->
-
-<!-- START BUY/SELL SELECTION -->
-
-<!-- Welcome message -->
+<!-- Welcome user in their selected language -->
 <form id="welcomeMessage">
 	<block>
 		<prompt bargein="false">
@@ -54,6 +50,10 @@
 		<goto next="#MainMenu"/>
 	</block>
 </form>
+
+<!-- END LANGUAGE SELECT -->
+
+<!-- START BUY/SELL SELECTION -->
 
 <!-- Menu for Selecting Buy or Sell using DTMF -->
 <menu id="MainMenu" dtmf="true" scope="dialog">
