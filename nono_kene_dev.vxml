@@ -80,6 +80,7 @@
                    ? sellRecording$.termchar : 'none')"/></log>
              <log>maxtime = 
                    <value expr="sellRecording$.maxtime"/>.</log>
+			<prompt> your recording was <value expr="sellRecording" /> </prompt>
 			<goto next="#sellConfirm"/>
          </filled>
       </record>
@@ -90,7 +91,7 @@
 		<audio expr="path + 'sell_quantity_confirm.wav'">
 			Your recorded advertisement to sell milk is
 		</audio>
-			<audio expr="sellRecording"/>
+			<!-- <audio expr="sellRecording"/> -->
 			<break time="500"/>
 		<audio expr="path + 'sell_confirm_correct_or_incorrect.wav'">
 			If this is incorrect press 1. Otherwise, press 2
