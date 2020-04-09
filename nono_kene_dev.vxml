@@ -8,7 +8,7 @@
 <form id="welcomeMessage">
 <block>
 <prompt bargein="false">
-	<audio src="path + welcome_message.wav">
+	<audio src="path + 'welcome_message.wav'">
 		This is some backup TTS if the audio file fails. 
 	</audio>
 </prompt>
