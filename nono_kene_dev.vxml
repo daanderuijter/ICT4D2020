@@ -145,8 +145,8 @@
 <menu id="sellConfirm" dtmf="true" scope="dialog">
 	<prompt bargein="true">
 		<break time="500"/>
-		<audio expr="path + lang + 'sell_confirm_correct_or_incorrect.wav'">
-			If this is incorrect press 1. Otherwise, press 2
+		<audio expr="path + lang + 'sell_confirm_advertisement.wav'">
+			If you would like to change your advertisement, press 1. If you would like to save your advertisement, press 2.
 		</audio>
 	</prompt>
 	<choice next="#correctSell" dtmf="1"></choice>
@@ -157,7 +157,7 @@
 <menu id="EndMenu" dtmf="true" scope="dialog">
 	<prompt bargein="true">
 		<audio expr="path + lang + 'end_menu.wav'">
-			If you want to end the call, press 1. If you want to go back to the start, press 2
+			If you want to end the call, press 1. If you want to go back to the start, press 2.
 		</audio>
 	</prompt>
 	<choice event="end" dtmf="1"></choice>
