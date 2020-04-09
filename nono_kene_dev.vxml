@@ -2,13 +2,29 @@
 <vxml version = "2.1" >
 
 <var name="quantity"/>
+<var name="lang"/>
 <var name="path" expr="'https://raw.githubusercontent.com/daanderuijter/ICT4D2020/dev/wavs/'"/>
 <var name="uid" expr="'devTestID'"/>
+
+<!-- Menu for Selecting Buy or Sell using DTMF-->
+<menu id="LangSelect" dtmf="true" scope="dialog">   
+	<prompt bargein="true">
+		<audio expr="path + 'lang_select_EN.wav'">
+			For english press 1.
+		</audio>
+		<audio expr="path + 'lang_select_NL.wav'">
+			Voor nederlands toets 2.
+		</audio>
+	</prompt>
+	<choice dtmf="1" expr="lang" next="#welcomeMessage">EN</choice>
+	<choice dtmf="2" expr="lang" next="#welcomeMessage">NL</choice>
+</menu>
 
 <!-- Welcome message -->
 <form id="welcomeMessage">
 <block>
 <prompt bargein="false">
+	<value expr="lang"/>
 	<audio expr="path + 'welcome_message.wav'">
 		This is some backup TTS if the audio file fails. 
 	</audio>
