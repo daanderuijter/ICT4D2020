@@ -5,8 +5,11 @@
 <var name="lang"/>
 <var name="path" expr="'https://raw.githubusercontent.com/daanderuijter/ICT4D2020/dev/wavs/'"/>
 
-<!-- Select a language -->
+<!-- START LANGUAGE SELECT -->
+
+<!-- Menu for language selection -->
 <menu id="LangSelect" dtmf="true" scope="dialog">
+	<!-- Elicit all languages, allows for the user to press on their preferred language right away (bargein=true) -->
 	<prompt bargein="true">
 		<audio expr="path + 'lang_select_EN.wav'">
 			For english press 1.
@@ -21,6 +24,8 @@
 
 <!-- Set Language to EN -->
 <catch event="langEN">
+	<!-- Language is controlled by selecting a sub-folder for the .wav files -->
+	<!-- The .wav files also have a prefix (e.g. "EN_") for clarification -->
 	<assign name="lang" expr="'EN/EN_'"/>
 	<goto next="#welcomeMessage"/>
 </catch>
@@ -34,6 +39,10 @@
 	<goto next="#LangSelect"/>
 </catch>
 
+<!-- END LANGUAGE SELECT -->
+
+<!-- START BUY/SELL SELECTION -->
+
 <!-- Welcome message -->
 <form id="welcomeMessage">
 	<block>
@@ -46,7 +55,7 @@
 	</block>
 </form>
 
-<!-- Menu for Selecting Buy or Sell using DTMF-->
+<!-- Menu for Selecting Buy or Sell using DTMF -->
 <menu id="MainMenu" dtmf="true" scope="dialog">
 	<prompt bargein="true">
 		<audio expr="path + lang + 'menu_select_buy_or_sell.wav'">
@@ -68,10 +77,6 @@
 	<goto next="#EndMenu"/>
 </catch>
 
-<catch event="correctSell_event">
-	<goto next="#correctSell"/>
-</catch>
-
 <!-- Selling menu -->
 <menu id="sell" dtmf="true" scope="dialog">
 	<prompt bargein="true">
@@ -80,8 +85,10 @@
 		</audio>
 	</prompt>
 	<choice next="#MainMenu" dtmf="1"></choice>
-	<choice event="correctSell_event" dtmf="2"></choice>
+	<choice next="#correctSell" dtmf="2"></choice>
 </menu>
+
+<!-- END BUY/SELL SELECTION -->
 
 <form id="correctSell">
 	<!-- Record quantity of milk to sell through keypad -->
