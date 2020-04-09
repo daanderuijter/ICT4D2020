@@ -90,6 +90,8 @@
 
 <!-- END BUY/SELL SELECTION -->
 
+<!-- START SELL ADVERTISEMENT RECORDING -->
+
 <form id="correctSell">
 	<!-- Record quantity of milk to sell through keypad -->
 	<field name="form_quantity" type="number">
@@ -98,7 +100,6 @@
 				Enter the quantity of milk to sell in liters, and press hash.
 			</audio>
 		</prompt>
-		<!--"filled" event for quantity field-->
 		<filled>
 			<!-- Save entered quantity of milk in variable -->
 			<assign name="quantity" expr="form_quantity"/>
@@ -106,14 +107,16 @@
 	</field>
 	
 	<!-- Record advertisement from farmer stating general info -->
-	<record name="sellRecording" maxtime="60s" dtmfterm="true" beep="true">
+	<record name="sellRecording" maxtime="60s" dtmfterm="true" beep="true" finalsilence="5s">
 		<prompt>
 			<audio expr="path + lang + 'sell_record_message.wav'">
 				Please record a message in which you say your: name, location, and phone number, and press hash.
 			</audio>
 		</prompt>
 
-		<!-- If the user doesn't say anything within finalsilence, catch the noinput, and return to selling menu-->
+		<!-- If the user doesn't say anything within 5 seconds (finalsilence), catch the noinput, and return to the start of the form -->
+		<!-- Ideally this would only go back to the "record" (so that the user does not need to input their amount again) -->
+		<!-- But, we have yet to figure out how to reference to that specific point -->
 		<noinput>
 			<prompt>
 				<audio expr="path + lang + 'sorry_hear_no_message.wav'">
@@ -123,8 +126,9 @@
 			<goto next="#correctSell"/>
 		</noinput>
 
+		<!-- Triggers once a user has provided a voice recording as input and pressed a dtmf term (or maxtime is reached) -->
 		<filled>
-			<!-- Play back quantity of milk and recorded message -->
+			<!-- Plays back quantity of milk and the recorded advertisement -->
 			<prompt>
 				<audio expr="path + lang + 'sell_quantity_confirm.wav'">
 					The quantity of milk you have selected to sell is.
@@ -142,6 +146,7 @@
 </form>
 
 <!-- Menu to confirm recording or go back to selling menu -->
+<!-- This is triggered directly after the user has heard back their selling amount and recorded advertisement -->
 <menu id="sellConfirm" dtmf="true" scope="dialog">
 	<prompt bargein="true">
 		<break time="500"/>
@@ -152,6 +157,10 @@
 	<choice next="#correctSell" dtmf="1"></choice>
 	<choice next="#EndMenu" dtmf="2"></choice>
 </menu>
+
+<!-- END SELL ADVERTISEMENT RECORDING -->
+
+<!-- START CONTINUE/CLOSE CALL -->
 
 <!-- Menu to end call or go back to start of application -->
 <menu id="EndMenu" dtmf="true" scope="dialog">
@@ -171,5 +180,7 @@
 	</prompt>
 	<disconnect/>
 </catch>
+
+<!-- END CONTINUE/CLOSE CALL -->
 
 </vxml>
