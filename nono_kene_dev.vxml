@@ -16,15 +16,29 @@
 			Voor nederlands toets 2.
 		</audio>
 	</prompt>
-	<choice dtmf="1" expr="lang" next="#welcomeMessage">EN</choice>
-	<choice dtmf="2" expr="lang" next="#welcomeMessage">NL</choice>
+	<choice dtmf="1" event="langEN"></choice>
+	<choice dtmf="2" event="langNL"></choice>
 </menu>
+
+<!-- Set Language to EN -->
+<catch event="langEN">
+	<assign name="lang" expr="'english'"/>
+	<goto next="#welcomeMessage"/>
+</catch> 
+
+<!-- Set Language to EN -->
+<catch event="langNL">
+	<assign name="lang" expr="'dutch'"/>
+	<goto next="#welcomeMessage"/>
+</catch> 
+
 
 <!-- Welcome message -->
 <form id="welcomeMessage">
 <block>
 <prompt bargein="false">
-	<value expr="lang"/>
+	Your language is
+	<value expr="lang" />
 	<audio expr="path + 'welcome_message.wav'">
 		This is some backup TTS if the audio file fails. 
 	</audio>
