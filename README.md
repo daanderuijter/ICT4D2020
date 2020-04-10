@@ -1,4 +1,4 @@
-# Nònò Kènè :mali::milk_glass:
+# Nònò Kènè :mali: :milk_glass:
 
 Connecting rural milk producers and buyers in Mali.
 
