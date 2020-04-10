@@ -110,6 +110,7 @@
 					Sorry. I could not hear your message. Now returning to the main menu.
 				</audio>
 			</prompt>
+			<reprompt />
 		</noinput>
 
 		<filled>
