@@ -3,7 +3,7 @@
 
 <var name="quantity"/>
 <var name="lang"/>
-<var name="path" expr="'https://raw.githubusercontent.com/daanderuijter/ICT4D2020/dev/wavs/'"/>
+<var name="path" expr="'https://raw.githubusercontent.com/daanderuijter/ICT4D2020/master/wavs/'"/>
 
 <!-- START LANGUAGE SELECT -->
 
