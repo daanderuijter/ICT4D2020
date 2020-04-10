@@ -94,12 +94,24 @@
 
 <form id="correctSell">
 	<!-- Record quantity of milk to sell through keypad -->
+	<!-- Note that this field also accepts a voice-based input and the * can be used to denote a decimal point-->
+	<!-- We have to figure out how to restrict this-->
 	<field name="form_quantity" type="number">
+		
 		<prompt>
 			<audio expr="path + lang + 'sell_quantity_liters_enter.wav'">
 				Enter the quantity of milk to sell in liters, and press hash.
 			</audio>
 		</prompt>
+		
+		<noinput>
+			<prompt>
+				<audio expr="path + lang + 'sorry_hear_no_message.wav'">
+					Sorry. I could not hear your message. Now returning to the main menu.
+				</audio>
+			</prompt>
+		</noinput>
+
 		<filled>
 			<!-- Save entered quantity of milk in variable -->
 			<assign name="quantity" expr="form_quantity"/>
