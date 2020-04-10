@@ -20,6 +20,15 @@
 	</prompt>
 	<choice dtmf="1" event="langEN"></choice>
 	<choice dtmf="2" event="langNL"></choice>
+
+	<!-- Error handling when wrong number is pressed -->
+	<nomatch>
+        <prompt>
+			That was not the right number.
+		</prompt>   		
+		<reprompt />
+	</nomatch>
+
 </menu>
 
 <!-- Set Language to EN -->
@@ -64,6 +73,15 @@
 	</prompt>
 	<choice event="buy" dtmf="1"></choice>
 	<choice next="#sell" dtmf="2"></choice>
+
+	<!-- Error handling when wrong number is pressed -->
+	<nomatch>
+        <prompt>
+			That was not the right number.
+		</prompt>   		
+		<reprompt />
+	</nomatch>
+
 </menu>
 
 <!-- Buying menu -->
@@ -86,6 +104,14 @@
 	</prompt>
 	<choice next="#MainMenu" dtmf="1"></choice>
 	<choice next="#correctSell" dtmf="2"></choice>
+
+<!-- Error handling when wrong number is pressed -->
+	<nomatch>
+        <prompt>
+			That was not the right number.
+		</prompt>   		
+		<reprompt />
+	</nomatch>
 </menu>
 
 <!-- END BUY/SELL SELECTION -->
@@ -104,6 +130,7 @@
 			</audio>
 		</prompt>
 		
+		<!-- Error handling for when the user does not enter a quantity or stays silent-->
 		<noinput>
 			<prompt>
 				<audio expr="path + lang + 'sorry_hear_no_message.wav'">
@@ -169,6 +196,15 @@
 	</prompt>
 	<choice next="#correctSell" dtmf="1"></choice>
 	<choice next="#EndMenu" dtmf="2"></choice>
+
+	<!-- Error handling when wrong number is pressed -->
+	<nomatch>
+        <prompt>
+			That was not the right number.
+		</prompt>   		
+		<reprompt />
+	</nomatch>
+
 </menu>
 
 <!-- END SELL ADVERTISEMENT RECORDING -->
@@ -184,6 +220,15 @@
 	</prompt>
 	<choice event="end" dtmf="1"></choice>
 	<choice next="#MainMenu" dtmf="2"></choice>
+
+	<!-- Error handling when wrong number is pressed -->
+	<nomatch>
+        <prompt>
+			That was not the right number.
+		</prompt>   		
+		<reprompt />
+	</nomatch>
+
 </menu>
 
 <!-- End application. Close call -->
