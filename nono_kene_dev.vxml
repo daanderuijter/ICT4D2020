@@ -94,6 +94,8 @@
 
 <form id="correctSell">
 	<!-- Record quantity of milk to sell through keypad -->
+	<!-- Note that this field also accepts a voice-based input and the * can be used to denote a decimal point-->
+	<!-- We have to figure out how to restrict this-->
 	<field name="form_quantity" type="number">
 		<prompt>
 			<audio expr="path + lang + 'sell_quantity_liters_enter.wav'">
